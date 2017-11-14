@@ -9,4 +9,12 @@
   .logo-icon {
     font-size: 2em;
   }
+
+  .add-new-asset {
+    color: $active-bg;
+
+    &:hover {
+      color: $active-hover;
+    }
+  }
 }
