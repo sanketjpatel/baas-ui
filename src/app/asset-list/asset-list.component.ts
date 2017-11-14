@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AssetListComponent implements OnInit {
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns = ['name', 'checkIn', 'dueDate', 'lat', 'long', 'sensorType', 'rangeError', 'details'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
@@ -22,22 +22,25 @@ export class AssetListComponent implements OnInit {
   }
 
   onAddAsset() {
-    this.router.navigate(['/add-asset']);
+    return this.router.navigate(['/add-asset']);
   }
 }
 
 
 export interface Element {
+  id: string;
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  checkIn: string;
+  dueDate: string;
+  lat: string;
+  long: string;
+  sensorType: string;
+  rangeError: string;
 }
 
 const ELEMENT_DATA: Element[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'}
+  {id: '1', name: 'Container 3456', checkIn: 'Nov 14', dueDate: 'Nov 16', lat: '35.92',
+    long: '-77.03', sensorType: 'Temperature', rangeError: 'Yes'},
+  {id: '2', name: 'Container 3457', checkIn: 'Nov 14', dueDate: 'Nov 16', lat: '35.92',
+    long: '-77.03', sensorType: 'Temperature', rangeError: 'Yes'}
 ];
