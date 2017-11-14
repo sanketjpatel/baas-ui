@@ -98,6 +98,15 @@ md-input-container {
   background-color: #1ba1fc;
 }
 
+.mat-header-row {
+  border-bottom: 1px solid white !important;
+}
+
+.mat-sort-header-button {
+  font-size: 18px !important;
+  font-weight: bold;
+}
+
 md-input-container.md-default-theme label,
 md-input-container.md-default-theme .md-placeholder {
   color: grey !important;
