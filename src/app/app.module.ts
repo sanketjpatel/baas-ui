@@ -3,14 +3,20 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AssetDetailsComponent } from './asset-details/asset-details.component';
+import { AssetListComponent } from './asset-list/asset-list.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AssetDetailsComponent,
+    AssetListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
