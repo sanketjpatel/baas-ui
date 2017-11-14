@@ -2,13 +2,27 @@
 
 .add-asset-container {
   width: 40%;
+  padding: 20px;
   h1 {
     padding-bottom: 20px;
   }
-  mat-form-field {
+  mat-form-field, .form-field {
     width: 100%;
-    padding: 20px;
+    padding: 20px 0;
+
+    .mat-button {
+
+      &.save-button {
+        background-color: $active-bg !important;
+
+      }
+      width: 150px;
+      padding: 10px;
+      font-size: 1.2em;
+    }
   }
+
+
   //input {
   //  color: $font-white-color;
   //  outline: 0;

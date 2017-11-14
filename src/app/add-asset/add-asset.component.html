@@ -11,12 +11,12 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <div>
+    <div class="form-field">
       <label>Sensor Maximum</label>
       <mat-slider min="30" max="100" value="60"></mat-slider>
     </div>
 
-    <div>
+    <div class="form-field">
       <label>Sensor Minimum</label>
       <mat-slider min="30" max="100" value="60"></mat-slider>
     </div>
@@ -26,8 +26,9 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <br/>
-    <button mat-button>Save</button>
-    <button mat-button>Cancel</button>
-
+    <div class="form-field">
+      <button class="save-button" mat-button>Save</button>
+      <button mat-button>Cancel</button>
+    </div>
   </form>
 </div>
