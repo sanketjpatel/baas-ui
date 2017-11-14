@@ -1,3 +1,36 @@
-<p>
-  asset-details works!
-</p>
+<div class="container-fluid asset-details">
+  <div class="row">
+    <h1>
+      <i class="back-button fa fa-arrow-circle-left" aria-hidden="true" (click)="onBackClick()"></i>
+      Asset 123
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      Graph and Map
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-6">
+          <div class="asset-stat">
+            <strong>Sensor Type:</strong> Temperature
+          </div>
+          <div class="asset-stat">
+            <strong>Range Max:</strong> 36
+          </div>
+          <div class="asset-stat">
+            <strong>Due Date:</strong> 11/20/17 6:00 CST
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="asset-stat">
+            <strong>Sensor ID:</strong> 123456890
+          </div>
+          <div class="asset-stat">
+            <strong>Range Min:</strong> 24
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
