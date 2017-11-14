@@ -1,0 +1,12 @@
+@import '../shared/scss/variables';
+
+.asset-list-container {
+  background-color: $dark-background;
+  color: $font-white-color;
+  height: 100%;
+  padding: 20px;
+
+  .logo-icon {
+    font-size: 2em;
+  }
+}

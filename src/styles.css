@@ -1,7 +1,121 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-  background-color: #2b2b2b;
-  color: white;
-  font-family: 'Roboto', sans-serif;
 
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/font-awesome/css/font-awesome.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+html,
+body,
+input,
+.container,
+.row,
+material-app,
+md-sidenav-container,
+.my-content {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Global style overrides for Bootstrap */
+
+.btn-secondary.active,
+.btn-secondary:active,
+.show>.btn-secondary.dropdown-toggle {
+  color: #1779B7 !important;
+  border-color: #1779B7;
+  box-shadow: none;
+}
+
+.dropdown-menu {
+  border-radius: 10px;
+}
+
+.dropdown-item:hover {
+  cursor: pointer;
+}
+
+
+/* Global style overrides for Angular Material */
+
+.mat-dialog-container {
+  background: #383838;
+  color: #fbfbfb;
+}
+
+.mat-slide-toggle {
+  float: left;
+}
+
+.mat-slide-toggle-thumb {
+  background-color: #1ba1fc !important;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #20475d;
+}
+
+.mat-slide-toggle-thumb {
+  background-color: #ADAFAE !important;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #1ba1fc !important;
+}
+
+.mat-slide-toggle-content {
+  font-size: 10pt;
+}
+
+md-input-container {
+  color: #fbfbfb;
+  width: 100% !important;
+}
+
+.mat-focused .mat-input-placeholder.mat-float,
+.mat-input-placeholder.mat-empty,
+.mat-input-placeholder.mat-float:not(.mat-empty) {
+  color: #ADAFAE;
+}
+
+.mat-input-underline {
+  background-color: #ADAFAE;
+}
+
+.mat-input-ripple {
+  background-color: #1ba1fc;
+}
+
+md-input-container.md-default-theme label,
+md-input-container.md-default-theme .md-placeholder {
+  color: grey !important;
+}
+
+
+/* Global style overrides for Highcharts */
+
+#highcharts-container {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #282828;
+}
+
+.highcharts-container {
+  width: inherit !important;
+  height: inherit !important;
+}
+
+.highcharts-root {
+  height: 100% !important;
+}
+
+.highcharts-contextbutton {
+  display: none !important;
 }
