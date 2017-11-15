@@ -128,21 +128,33 @@ export class AssetDetailsComponent implements OnInit {
     this.router.navigate(['/assets']);
   }
 
+  getIconUrl(location) {
+    return location.locationAlertType === 'high' ? '../assets/images/red-alert.svg' : '../assets/images/no-alert.svg';
+  }
+
   initMap() {
     const uluru = {lat: this.centerLat, lng: this.centerLng};
     const styledMapType = new google.maps.StyledMapType(MAPCONFIG);
     const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
+      zoom: 14,
       center: uluru,
       disableDefaultUI: true,
       mapTypeControlOptions: {
         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
       }
     });
+    const image = {
+      url: this.getIconUrl(location),
+      size: new google.maps.Size(16, 16),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(16, 16),
+      scaledSize: new google.maps.Size(64, 64)
+    };
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
     const marker = new google.maps.Marker({
       position: uluru,
+      icon: image,
       map: map
     });
   }

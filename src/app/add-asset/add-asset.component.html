@@ -11,15 +11,13 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <div class="form-field">
-      <label>Sensor Maximum</label>
-      <mat-slider min="30" max="100" value="60"></mat-slider>
-    </div>
+    <mat-form-field>
+      <input matInput placeholder="Sensor Minimum">
+    </mat-form-field>
 
-    <div class="form-field">
-      <label>Sensor Minimum</label>
-      <mat-slider min="30" max="100" value="60"></mat-slider>
-    </div>
+    <mat-form-field>
+      <input matInput placeholder="Sensor Maximum">
+    </mat-form-field>
     <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Due Date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
