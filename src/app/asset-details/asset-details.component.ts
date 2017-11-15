@@ -16,7 +16,10 @@ declare let Highcharts: any;
   encapsulation: ViewEncapsulation.None
 })
 export class AssetDetailsComponent implements OnInit {
-
+  alertFreePlotLineColor: string;
+  alertFreePlotBandColor: string;
+  alertPlotBandColor: string;
+  alertPlotLineColor: string;
   centerLat: number;
   centerLng: number;
   private assetId: string;
@@ -24,6 +27,10 @@ export class AssetDetailsComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) {
     this.centerLat = 41.878;
     this.centerLng = -87.62;
+    this.alertFreePlotLineColor = '#289DDD';
+    this.alertFreePlotBandColor = '#26323A';
+    this.alertPlotBandColor = 'rgba(253, 82, 85, 0.2)';
+    this.alertPlotLineColor = '#F00';
   }
 
   ngOnInit() {
@@ -120,7 +127,14 @@ export class AssetDetailsComponent implements OnInit {
     this.route.params.subscribe(val => {
       this.assetId = val.assetId;
       this.initMap();
-      this.updateChart({});
+      this.updateChart({
+        observationsData: [[1, 6], [2, 0], [3, 3], [4, 2]],
+        plotBandMaxValue: 5,
+        plotBandMinValue: 1,
+        yMax: 8,
+        yMin: -2,
+        alertLevel: 'high'
+      });
     });
   }
 
@@ -160,44 +174,29 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   updateChart(options) {
-    // const observationData = _.get(options, 'observationsData', []);
-    // const predictionData = _.get(options, 'predictionsData', []);
+    const observationData = _.get(options, 'observationsData', []);
     const plotBandMaxValue = _.get(options, 'plotBandMaxValue');
     const plotBandMinValue = _.get(options, 'plotBandMinValue');
     const xAxisFormatter = _.get(options, 'xAxisFormatter');
     const yAxisFormatter = _.get(options, 'yAxisFormatter');
-    // const observationSeriesName = _.get(options, 'observationSeriesName');
-    // const predictionSeriesName = _.get(options, 'predictionSeriesName');
+    const observationSeriesName = _.get(options, 'observationSeriesName');
     const tooltipFormatter = _.get(options, 'tooltipFormatter');
     const yAxisTitle = _.get(options, 'yAxisTitle');
     const alertLevel = _.get(options, 'alertLevel');
+    const observationValues = _.map(observationData, '1');
 
-    const currentTime = moment().valueOf();
-    // const observationValues = _.map(observationData, '1');
-    // const predictionValues = _.map(predictionData, '1');
+    const observationsMin = _.min(observationValues);
+    const observationsMax = _.max(observationValues);
 
-    // const observationsMin = _.min(observationValues);
-    // const observationsMax = _.max(observationValues);
-    // const predictionsMin = _.min(predictionValues);
-    // const predictionsMax = _.max(predictionValues);
-
-    // const yMin = _.min([plotBandMinValue, _.min([observationsMin, predictionsMin])]);
-    // const yMax = _.max([plotBandMaxValue, _.max([observationsMax, predictionsMax])]);
-    // const plotBandColor = alertLevel === 'high' ? alertPlotBandColor : alertFreePlotBandColor;
-    // const plotLineColor = alertLevel === 'high' ? alertPlotLineColor : alertFreePlotLineColor;
+    let yMin = _.min([plotBandMinValue, observationsMin]);
+    let yMax = _.max([plotBandMaxValue, observationsMax]);
+    const range = yMax - yMin;
+    yMax += range / 20;
+    yMin -= range / 20;
+    const plotBandColor = alertLevel === 'high' ? this.alertPlotBandColor : this.alertFreePlotBandColor;
+    const plotLineColor = alertLevel === 'high' ? this.alertPlotLineColor : this.alertFreePlotLineColor;
 
     const observationZones = [
-      {
-        value: plotBandMinValue,
-        color: '#D09494'
-      }, {
-        value: plotBandMaxValue,
-        color: '#9D9595'
-      }, {
-        color: '#D09494'
-      }
-    ];
-    const predictionZones = [
       {
         value: plotBandMinValue,
         color: '#FD5255'
@@ -211,37 +210,22 @@ export class AssetDetailsComponent implements OnInit {
 
     const chartOptions = {
       xAxis: {
-        labels: {formatter: xAxisFormatter},
-        plotLines: [{
-          color: '#FFF',
-          width: 1.5,
-          label: {
-            text: 'NOW',
-            align: 'top',
-            x: 10,
-            y: 20,
-            zIndex: 2,
-            style: {color: '#FFF', fontWeight: 'bold'},
-            rotation: 0
-          },
-          value: currentTime,
-          zIndex: 2
-        }]
+        labels: {formatter: xAxisFormatter}
       },
       yAxis: {
-        // min: yMin,
-        // max: yMax,
+        min: yMin,
+        max: yMax,
         labels: {formatter: yAxisFormatter},
         title: {text: yAxisTitle},
         plotLines: [
           {
-            // color: plotLineColor,
+            color: plotLineColor,
             width: 1,
             value: plotBandMaxValue,
             id: 'maxPlotLine',
             zIndex: 2
           }, {
-            // color: plotLineColor,
+            color: plotLineColor,
             width: 1,
             value: plotBandMinValue,
             id: 'minPlotLine',
@@ -249,29 +233,22 @@ export class AssetDetailsComponent implements OnInit {
           }
         ],
         plotBands: [{
-          // color: plotBandColor,
-          from: plotBandMinValue,
-          to: plotBandMaxValue,
-          id: 'plotBand'
+          color: plotBandColor,
+          from: plotBandMaxValue,
+          to: Infinity,
+          id: 'plotBandMax'
+        }, {
+          color: plotBandColor,
+          from: -Infinity,
+          to: plotBandMinValue,
+          id: 'plotBandMin'
         }]
       },
       series: [
         {
-          // name: observationSeriesName,
-          // data: observationData,
-          data: [1, 3, 6, 9, 2],
+          name: observationSeriesName,
+          data: observationData,
           zones: observationZones
-        // }, {
-        //   // name: predictionSeriesName,
-        //   data: predictionData,
-        //   zones: predictionZones,
-        //   marker: {radius: 5}
-        // }, {
-        //   data: [observationData[observationData.length - 1], predictionData[0]],
-        //   enableMouseTracking: false,
-        //   showInLegend: false,
-        //   marker: {enabled: false},
-        //   zones: predictionZones
         }
       ],
       tooltip: {formatter: tooltipFormatter}
