@@ -1,0 +1,11 @@
+<div class="login-container">
+  <img class="logo" src="../../assets/images/icon.png">
+
+  <h1>Blockchain Asset Tracker</h1>
+  <mat-form-field>
+    <input name="accountId" matInput placeholder="Account ID" [(ngModel)]="accountId" required>
+  </mat-form-field>
+  <br/>
+  <button class="login-button" (click)="onLogin()" [disabled]="!accountId" mat-button>Login</button>
+
+</div>

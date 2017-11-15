@@ -46,13 +46,16 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
+import { LoginComponent } from './login/login.component';
+import {GlobalService} from './shared/global-service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AssetDetailsComponent,
     AssetListComponent,
-    AddAssetComponent
+    AddAssetComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,7 @@ import {
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [],
+  providers: [GlobalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

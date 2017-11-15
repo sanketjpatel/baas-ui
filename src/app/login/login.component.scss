@@ -1,0 +1,30 @@
+.login-container {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+
+  .logo {
+    width: 200px;
+    padding: 20px;
+  }
+
+  .mat-button {
+
+    &.login-button {
+      background-color: green !important;
+
+    }
+    width: 150px;
+    padding: 10px;
+    font-size: 1.2em;
+  }
+  mat-form-field, .form-field {
+    width: 60%;
+    text-align: center;
+
+    padding-top: 180px;
+    padding-bottom: 20px;
+
+  }
+
+}

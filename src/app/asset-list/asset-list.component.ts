@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { Router } from '@angular/router';
+import { GlobalService} from '../shared/global-service';
 
 @Component({
   selector: 'app-asset-list',
@@ -15,10 +16,11 @@ export class AssetListComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private globalService: GlobalService) {}
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    console.log(this.globalService.accountId);
   }
 
   onAddAsset() {
