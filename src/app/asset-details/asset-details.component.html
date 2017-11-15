@@ -7,9 +7,17 @@
   </div>
   <div class="row">
     <div class="col-6">
-      <div id="chart">
-      <div id="highcharts-container"></div></div>
-      <div id="map"></div>
+      <div class="chart-wrapper">
+        <div class="sub-title">Asset Temperature</div>
+
+        <div id="chart">
+          <div id="highcharts-container"></div>
+        </div>
+      </div>
+      <div class="map-wrapper">
+        <div class="sub-title">Asset Location</div>
+        <div id="map"></div>
+      </div>
     </div>
     <div class="col-6">
       <div class="row">
@@ -33,6 +41,53 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-12">
+          <mat-table #table [dataSource]="dataSource" matSort>
+
+            <!-- Time Column -->
+            <ng-container matColumnDef="time">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Time </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
+            </ng-container>
+
+
+            <!-- Temperature Column -->
+            <ng-container matColumnDef="temp">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Temp </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.temp}} </mat-cell>
+            </ng-container>
+
+            <!-- Latitude Column -->
+            <ng-container matColumnDef="lat">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Lat </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.lat}} </mat-cell>
+            </ng-container>
+
+            <!-- Longitude Column -->
+            <ng-container matColumnDef="long">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Long </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.long}} </mat-cell>
+            </ng-container>
+
+            <!-- Range Error Column -->
+            <ng-container matColumnDef="rangeError">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Range Error </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.rangeError}} </mat-cell>
+            </ng-container>
+
+            <!-- Block Column -->
+            <ng-container matColumnDef="block">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Block </mat-header-cell>
+              <mat-cell *matCellDef="let element"> View </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

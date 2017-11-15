@@ -1,4 +1,4 @@
-let mapconfig = [
+const mapconfig = [
   {
     elementType: 'geometry',
     stylers: [

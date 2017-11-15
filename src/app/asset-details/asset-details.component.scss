@@ -1,3 +1,5 @@
+@import "../shared/scss/variables";
+
 .asset-details {
   .back-button {
     cursor: pointer;
@@ -6,13 +8,34 @@
     padding: 5px 0;
   }
 
-  #chart {
-    height: 400px;
-    width: 100%;
+  strong {
+    color: $font-bright-color;
+  }
+  mat-table {
+    margin: 30px 0;
+
+    .mat-header-row, .mat-row {
+      min-height: 32px;
+    }
   }
 
-  #map {
-    height: 400px;
-    width: 100%;
+  .sub-title {
+    padding: 5px 20px;
   }
+
+  .chart-wrapper {
+    #chart {
+      height: 250px;
+      width: 100%;
+    }
+  }
+
+  .map-wrapper {
+    #map {
+      margin: 5px 0;
+      height: 400px;
+      width: 100%;
+    }
+  }
+
 }
