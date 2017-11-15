@@ -40,13 +40,38 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    const observations = [{
+      blockId: 1,
+      timeStamp: 16,
+      temperature: 6,
+      lat: 35,
+      long: -80
+    }, {
+      blockId: 2,
+      timeStamp: 25,
+      temperature: 0,
+      lat: 36,
+      long: -81
+    }, {
+      blockId: 3,
+      timeStamp: 36,
+      temperature: 3,
+      lat: 37,
+      long: -82
+    }, {
+      blockId: 4,
+      timeStamp: 49,
+      temperature: 2,
+      lat: 10,
+      long: -77
+    }];
     Highcharts.setOptions(CHART_THEME);
 
     this.route.params.subscribe(val => {
       this.assetId = val.assetId;
       this.initMap();
       this.updateChart({
-        observationsData: [[1, 6], [2, 0], [3, 3], [4, 2]],
+        observationsData: _.map(observations, observation => [observation.timeStamp, observation.temperature]),
         plotBandMaxValue: 5,
         plotBandMinValue: 1,
         yMax: 8,
@@ -65,11 +90,11 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   initMap() {
-    const uluru = {lat: this.centerLat, lng: this.centerLng};
+    const location = {lat: this.centerLat, lng: this.centerLng};
     const styledMapType = new google.maps.StyledMapType(MAPCONFIG);
     const map = new google.maps.Map(document.getElementById('map'), {
       zoom: 14,
-      center: uluru,
+      center: location,
       disableDefaultUI: true,
       mapTypeControlOptions: {
         mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
@@ -85,7 +110,7 @@ export class AssetDetailsComponent implements OnInit {
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
     const marker = new google.maps.Marker({
-      position: uluru,
+      position: location,
       icon: image,
       map: map
     });
