@@ -42,13 +42,13 @@
         <!-- Latitude Column -->
         <ng-container matColumnDef="lat">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Lat </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.lat}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.lat | number}} </mat-cell>
         </ng-container>
 
         <!-- Longitude Column -->
         <ng-container matColumnDef="long">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Long </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.long}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.long | number}} </mat-cell>
         </ng-container>
 
         <!-- Sensor Type Column -->

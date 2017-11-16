@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {AssetsService} from "../shared/services/assets-service";
+import {AssetsService} from '../shared/services/assets-service';
 import * as _ from 'lodash';
 
 @Component({
@@ -25,13 +25,12 @@ export class AdvancedComponent implements OnInit {
     this.displayData = undefined;
     this.assetsService.getAssetTransactions(this.assetName, this.accountId)
       .then(data => {
-        console.log(data);
         this.blockData = data;
-        this.blockIds = _.map(data, 'id');
+        this.blockIds = _.map(data as any, 'blockId');
       });
   }
   getBlock(id) {
-    this.displayData = _.find(this.blockData, {id: id});
+    this.displayData = _.find(this.blockData, {blockId: id});
   }
 
 }

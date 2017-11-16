@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import {GlobalService} from "./global-service";
+import {GlobalService} from './global-service';
 
 @Injectable()
 export class AssetsService {
-  private baseUrl = 'http://10.36.30.141:3000/baas';
+  private baseUrl = 'http://localhost:3000/baas';
 
   constructor(private httpClient: HttpClient, private globalService: GlobalService) {
   }
@@ -31,15 +31,12 @@ export class AssetsService {
     const globalService = this.globalService;
 
     return new Promise(function (resolve, reject) {
-      httpClient.get(`${baseUrl}/assets/transactions`, {params: {asset: assetId, accountId: accountId || globalService.accountId}}).subscribe(data => {
-        // Read the result field from the JSON response.
-        return resolve(_.map(data, transactionMapper));
-      });
+      httpClient.get(`${baseUrl}/assets/transactions`, {params: {asset: assetId, accountId: accountId || globalService.accountId}})
+        .subscribe(data => resolve(_.map(data, transactionMapper)), reject);
     });
   }
 
   assetsListMapper(asset) {
-    // console.log(asset);
     return {
       asset: asset,
       id: asset.dataRecord.name,
@@ -49,12 +46,24 @@ export class AssetsService {
       lat: asset.dataRecord.latitude,
       long: asset.dataRecord.longitude,
       sensorType: 'Temperature',
-      rangeError: true
+      rangeError: Math.random() > 0.5
     };
   }
 
   transactionMapper(transaction) {
-    // console.log(asset);
-    return transaction;
+    const block = {};
+    block['blockId'] = transaction.id;
+    if (transaction.data.temperature) {
+      block['temperature'] = transaction.data.temperature;
+      block['timeStamp'] = transaction.data.timestamp;
+      block['temperature'] = transaction.data.temperature;
+      block['lat'] = transaction.data.latitude;
+      block['long'] = transaction.data.longitude;
+      block['rangeError'] = transaction.data.temperature < 30 || transaction.data.temperature > 80;
+    } else {
+      block['data'] = transaction.data;
+    }
+
+    return block;
   }
 }
