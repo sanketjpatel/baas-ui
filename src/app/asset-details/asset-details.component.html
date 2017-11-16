@@ -83,7 +83,7 @@
             <!-- Block Column -->
             <ng-container matColumnDef="block">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Block </mat-header-cell>
-              <mat-cell *matCellDef="let element"> <span class="view-link" (click)="showData({one: 1})">View</span> </mat-cell>
+              <mat-cell *matCellDef="let element"> <span class="view-link" (click)="showData(element)">View</span> </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

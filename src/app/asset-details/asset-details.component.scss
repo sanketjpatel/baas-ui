@@ -25,6 +25,12 @@
 
     .view-link {
       cursor: pointer;
+      color: $active-bg;
+      text-decoration: underline;
+
+      &:hover {
+        color: $active-hover;
+      }
     }
 
     .mat-header-row, .mat-row {
