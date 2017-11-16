@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { GlobalService} from '../shared/global-service';
+import { GlobalService} from '../shared/services/global-service';
 import {Router} from "@angular/router";
 
 @Component({

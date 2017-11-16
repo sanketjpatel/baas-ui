@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AssetDetailsComponent } from './asset-details/asset-details.component';
@@ -47,8 +46,10 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
-import {GlobalService} from './shared/global-service';
+import { GlobalService } from './shared/services/global-service';
+import { AssetsService } from './shared/services/assets-service';
 import { AdvancedComponent } from './advanced/advanced.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { AdvancedComponent } from './advanced/advanced.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
@@ -97,7 +99,10 @@ import { AdvancedComponent } from './advanced/advanced.component';
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [GlobalService],
+  providers: [
+    GlobalService,
+    AssetsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

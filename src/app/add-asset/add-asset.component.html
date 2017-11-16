@@ -1,32 +1,31 @@
 <div class="add-asset-container">
   <h1 class="page-header">Add Asset</h1>
-  <form class="add-asset-form">
+
     <mat-form-field>
-      <input matInput placeholder="Asset Name">
+      <input matInput [(ngModel)]="assetname" placeholder="Asset Name">
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Sensor Type">
+      <mat-select placeholder="Sensor Type" [(ngModel)]="sensor">
         <mat-option *ngFor="let sensor of sensors" [value]="sensor.value">
           {{ sensor.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Sensor Minimum">
+      <input matInput [(ngModel)]="min" placeholder="Sensor Minimum">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Sensor Maximum">
+      <input matInput [(ngModel)]="max" placeholder="Sensor Maximum">
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Due Date">
+      <input matInput [matDatepicker]="picker" [(ngModel)]="date" placeholder="Due Date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <br/>
     <div class="form-field">
-      <button class="save-button" mat-button>Save</button>
+      <button class="save-button" (click)="onAddAsset()" mat-button>Save</button>
       <button mat-button (click)="onBackClick()">Cancel</button>
     </div>
-  </form>
 </div>

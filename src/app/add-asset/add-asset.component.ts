@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import {GlobalService} from '../shared/services/global-service';
 
 @Component({
   selector: 'app-add-asset',
@@ -10,7 +11,12 @@ import { Router } from '@angular/router';
 export class AddAssetComponent implements OnInit {
 
   sensors = [];
-  constructor(private router: Router) {}
+  assetname: '';
+  sensor: '';
+  min: '';
+  max: '';
+  date: '';
+  constructor(private router: Router, private globalService: GlobalService) {}
   ngOnInit() {
     this.sensors = [
       {
@@ -27,6 +33,15 @@ export class AddAssetComponent implements OnInit {
   onBackClick() {
     this.router.navigate(['/assets']);
   }
-
+  onAddAsset() {
+    this.globalService.assets.push({
+      id: 'uuid' + Math.floor(100 * Math.random()),
+      name: this.assetname,
+      sensorType: this.sensor,
+      dueDate: this.date
+    });
+    console.log(this.globalService.assets);
+    this.router.navigate(['/assets']);
+  }
 
 }
