@@ -1,27 +1,77 @@
 <div class="asset-list-container">
   <nav>
-    <div class="row">
+    <div class="row head-row">
       <div class="col-md-8">
         <h1>
           Asset Tracker
         </h1>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="add-new-asset-container">
-          <h1 class="add-new-asset">
-            <span class="fa fa-plus-circle"></span>Add New Asset
-          </h1>
+          <img class="logo" src="../../assets/images/icon.png">
+          <h2 class="add-new-asset" (click)="onAddAsset()">
+            <span class="fa fa-plus-circle"></span> Add New Asset
+          </h2>
         </div>
-      </div>
-      <div class="col-md-1">
-        <i class="fa fa-circle logo-icon"></i>
       </div>
     </div>
   </nav>
 
   <div class="asset-list-table">
-    <p>
-      Assets list table
-    </p>
+    <div class="example-container">
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Checkin Column -->
+        <ng-container matColumnDef="checkIn">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Checkin </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.checkIn}} </mat-cell>
+        </ng-container>
+
+        <!-- Due Date Column -->
+        <ng-container matColumnDef="dueDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.dueDate}} </mat-cell>
+        </ng-container>
+
+        <!-- Latitude Column -->
+        <ng-container matColumnDef="lat">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Lat </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.lat}} </mat-cell>
+        </ng-container>
+
+        <!-- Longitude Column -->
+        <ng-container matColumnDef="long">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Long </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.long}} </mat-cell>
+        </ng-container>
+
+        <!-- Sensor Type Column -->
+        <ng-container matColumnDef="sensorType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Sensor Type </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.sensorType}} </mat-cell>
+        </ng-container>
+
+        <!-- Range Error Column -->
+        <ng-container matColumnDef="rangeError">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Range Error </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.rangeError}} </mat-cell>
+        </ng-container>
+
+        <!-- Details Column -->
+        <ng-container matColumnDef="details">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Details </mat-header-cell>
+          <mat-cell *matCellDef="let element"> <a href="/asset-details/{{element.id}}">View</a> </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
   </div>
 </div>

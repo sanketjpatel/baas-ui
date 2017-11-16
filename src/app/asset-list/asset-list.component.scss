@@ -4,17 +4,26 @@
   background-color: $dark-background;
   color: $font-white-color;
   height: 100%;
-  padding: 20px;
 
-  .logo-icon {
-    font-size: 2em;
+  .head-row{
+    padding-bottom: 20px;
+  }
+
+  .logo {
+    width: 40px;
+    float: right;
+    margin: -5px 0 0 10px;
+
   }
 
   .add-new-asset {
     color: $active-bg;
+    font-size: 1.4rem;
+    text-align: right;
 
     &:hover {
       color: $active-hover;
+      cursor: pointer;
     }
   }
 }

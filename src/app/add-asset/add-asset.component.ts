@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-asset',
@@ -9,8 +10,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class AddAssetComponent implements OnInit {
 
   sensors = [];
-  constructor() { }
-
+  constructor(private router: Router) {}
   ngOnInit() {
     this.sensors = [
       {
@@ -23,5 +23,10 @@ export class AddAssetComponent implements OnInit {
       }
     ];
   }
+
+  onBackClick() {
+    this.router.navigate(['/assets']);
+  }
+
 
 }

@@ -1,0 +1,97 @@
+@import "../shared/scss/variables";
+
+.asset-details {
+  .head-row{
+    padding-bottom: 20px;
+  }
+  .back-button {
+    cursor: pointer;
+  }
+  .asset-stat {
+    padding: 5px 0;
+  }
+
+  .logo {
+    width: 40px;
+    float: right;
+    margin: -5px 0 0 10px;
+  }
+
+  strong {
+    color: $font-bright-color;
+  }
+  mat-table {
+    margin: 30px 0;
+
+    .view-link {
+      cursor: pointer;
+      color: $active-bg;
+      text-decoration: underline;
+
+      &:hover {
+        color: $active-hover;
+      }
+    }
+
+    .mat-header-row, .mat-row {
+      min-height: 32px;
+    }
+  }
+
+  .sub-title {
+    padding: 5px 0;
+    font-size: 1.6rem;
+    font-weight: 300;
+  }
+  .data-col{
+    padding-top: 50px;
+  }
+
+  .chart-wrapper {
+    #chart {
+      height: 250px;
+      width: 100%;
+    }
+  }
+
+  .map-wrapper {
+    #map {
+      margin: 5px 0;
+      height: 400px;
+      width: 100%;
+    }
+  }
+
+  .range-active {
+    color: $alert-color;
+    font-weight: bold;
+  }
+}
+
+.data-popup {
+  pre {
+    padding: 30px;
+    color: white;
+
+  }
+  .close-modal {
+    cursor: pointer;
+  }
+
+  .block-data {
+    padding: 20px;
+  }
+
+  opacity: .9;
+
+  border: solid gray 1px;
+  border-radius: 4px;
+  overflow-y: scroll;
+  background: $background-color;
+  position: absolute;
+  top :20%;
+  left: 25%;
+  width: 50%;
+  height: 60%;
+  z-index: 1000;
+}

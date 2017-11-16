@@ -1,0 +1,27 @@
+<div class="container-fluid login-container">
+
+ <div class="header-row row">
+   <div class="col-12">
+     <h1>Advanced</h1>
+     <mat-form-field>
+       <input name="accountId" matInput placeholder="Account" [(ngModel)]="accountId" required>
+     </mat-form-field>
+     <mat-form-field>
+       <input name="asset" matInput placeholder="Asset" [(ngModel)]="accountId" required>
+     </mat-form-field>
+     <button class="visualize-button" (click)="getBlockData()" mat-button>Visualize</button>
+
+   </div>
+ </div>
+  <div class="row">
+    <div class="col-5">
+      <div *ngFor="let element of blockIds">
+        <button class="element-button" (click)="getBlock(element)" mat-button>{{element}}</button>
+
+      </div>
+    </div>
+    <div class="data-display col-7">
+      <pre>{{displayData | json}}</pre>
+    </div>
+  </div>
+</div>

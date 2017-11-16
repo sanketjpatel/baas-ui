@@ -1,5 +1,5 @@
 <div class="add-asset-container">
-  <h1>Add Asset</h1>
+  <h1 class="page-header">Add Asset</h1>
   <form class="add-asset-form">
     <mat-form-field>
       <input matInput placeholder="Asset Name">
@@ -11,23 +11,22 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <div>
-      <label>Sensor Maximum</label>
-      <mat-slider min="30" max="100" value="60"></mat-slider>
-    </div>
+    <mat-form-field>
+      <input matInput placeholder="Sensor Minimum">
+    </mat-form-field>
 
-    <div>
-      <label>Sensor Minimum</label>
-      <mat-slider min="30" max="100" value="60"></mat-slider>
-    </div>
+    <mat-form-field>
+      <input matInput placeholder="Sensor Maximum">
+    </mat-form-field>
     <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Due Date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <br/>
-    <button mat-button>Save</button>
-    <button mat-button>Cancel</button>
-
+    <div class="form-field">
+      <button class="save-button" mat-button>Save</button>
+      <button mat-button (click)="onBackClick()">Cancel</button>
+    </div>
   </form>
 </div>
