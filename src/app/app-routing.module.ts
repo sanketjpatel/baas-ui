@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'advanced', component: AdvancedComponent },
   { path: 'assets', component: AssetListComponent },
   { path: 'add-asset', component: AddAssetComponent },
-  { path: 'asset-details/:assetId', component: AssetDetailsComponent }
+  { path: 'asset-details', component: AssetDetailsComponent }
 ];
 
 @NgModule({

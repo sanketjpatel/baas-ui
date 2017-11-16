@@ -53,6 +53,10 @@ export class AssetListComponent implements OnInit {
 
   navigateToAsset(asset) {
     this.globalService.asset = asset;
-    this.router.navigate(['/asset-details/' + asset.dataRecord.name]);
+    this.router.navigate(['/asset-details'], {queryParams: {assetId: asset.asset, assetName: asset.dataRecord.name, accountId: this.globalService.accountId}});
+  }
+
+  goToAdv() {
+    return this.router.navigate(['/advanced']);
   }
 }

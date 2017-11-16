@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {AssetsService} from "../shared/services/assets-service";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-advanced',
@@ -8,25 +10,28 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class AdvancedComponent implements OnInit {
 
+  blockData: any;
   blockIds: any;
   displayData: any;
-  constructor() { }
+  accountId: any;
+  assetName: any;
+
+  constructor(private assetsService: AssetsService) { }
   ngOnInit() {
-    this.blockIds = ['95cf87c805b840442a0f62cfc60a9aa8155a982d521202a515c186fad9c3cd52', '4595cf87c805b840442a0f62cfc60a9aa8155a982d521202a515c186fad9c3cd526', '7895cf87c805b840442a0f62cfc60a9aa8155a982d521202a515c186fad9c3cd529'];
-    this.displayData = {
-      id: 123,
-      name: 'NAME'
-    };
+    this.displayData = undefined;
   }
 
   getBlockData() {
-
+    this.displayData = undefined;
+    this.assetsService.getAssetTransactions(this.assetName, this.accountId)
+      .then(data => {
+        console.log(data);
+        this.blockData = data;
+        this.blockIds = _.map(data, 'id');
+      });
   }
   getBlock(id) {
-    this.displayData = {
-      id: 123,
-      name: 'NAME'
-    };
+    this.displayData = _.find(this.blockData, {id: id});
   }
 
 }

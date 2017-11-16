@@ -7,6 +7,8 @@ import CHART_THEME from './chart-theme';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import {MatSort, MatTableDataSource} from '@angular/material';
+import {GlobalService} from "../shared/services/global-service";
+import {AssetsService} from "../shared/services/assets-service";
 
 declare let google: any;
 declare let Highcharts: any;
@@ -35,6 +37,8 @@ export class AssetDetailsComponent implements OnInit {
   alertPlotLineColor: string;
   centerLat: number;
   centerLng: number;
+  assetName: any;
+  assetData: any;
   private assetId: string;
 
   displayedColumns = ['timeStamp', 'temperature', 'lat', 'long', 'rangeError', 'block'];
@@ -42,7 +46,7 @@ export class AssetDetailsComponent implements OnInit {
    data: object;
    showPopover = false;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private globalService: GlobalService, private assetsService: AssetsService) {
     this.centerLat = 41.878;
     this.centerLng = -87.62;
     this.alertFreePlotLineColor = '#289DDD';
@@ -52,6 +56,16 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams
+      .subscribe(params => {
+        this.assetName = params.assetName;
+        this.assetsService.getAssetTransactions(params.assetId, params.accountId)
+          .then(data => {
+            this.assetData = data;
+          });
+
+      });
+    // this.assetsService.getAssetTransactions()
     const observations = [{
       blockId: '1',
       timeStamp: 16,
