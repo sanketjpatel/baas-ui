@@ -24,14 +24,15 @@ export class AssetsService {
   }
 
   assetsListMapper(asset) {
+    // console.log(asset);
     return {
-      assetId: asset.asset,
+      asset: asset,
       id: asset.dataRecord.name,
       name: asset.dataRecord.name,
-      checkIn: moment().valueOf(),
+      checkIn: moment().subtract( Math.random() * 12, 'hours').valueOf(),
       dueDate: moment().add(5, 'days').valueOf(),
-      lat: Math.random() * 180 - 90,
-      long: Math.random() * 360 - 180,
+      lat: asset.dataRecord.latitude,
+      long: asset.dataRecord.longitude,
       sensorType: 'Temperature',
       rangeError: true
     };

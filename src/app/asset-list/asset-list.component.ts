@@ -44,11 +44,15 @@ export class AssetListComponent implements OnInit {
         ELEMENT_DATA.push(record);
       });
       this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-      console.log(ELEMENT_DATA);
     });
   }
 
   onAddAsset() {
     return this.router.navigate(['/add-asset']);
+  }
+
+  navigateToAsset(asset) {
+    this.globalService.asset = asset;
+    this.router.navigate(['/asset-details/' + asset.dataRecord.name]);
   }
 }

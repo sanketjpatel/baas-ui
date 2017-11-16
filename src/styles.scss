@@ -126,6 +126,21 @@ md-input-container.md-default-theme .md-placeholder {
 }
 
 
+.view-link {
+  cursor: pointer;
+  color: $active-bg;
+  text-decoration: underline;
+
+  &:hover {
+    color: $active-hover;
+  }
+}
+
+.range-active {
+  color: $alert-color;
+  font-weight: bold;
+}
+
 /* Global style overrides for Highcharts */
 
 #highcharts-container {
