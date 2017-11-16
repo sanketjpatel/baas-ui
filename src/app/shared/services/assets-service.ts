@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from './http-wrapper';
-import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class AssetsService {
@@ -10,17 +9,17 @@ export class AssetsService {
   }
 
   getAssetsList() {
-    return this.httpClient.get(`${this.baseUrl}/assets`)
-      .map(this.extractData)
-      .catch(this.handleError);
+    const httpClient = this.httpClient;
+    const baseUrl = this.baseUrl;
+    return new Promise(function (resolve, reject) {
+      httpClient.get(`${baseUrl}/assets`).subscribe(data => {
+        // Read the result field from the JSON response.
+        return resolve(data);
+      });
+    });
   }
 
-  private extractData(res: Response) {
-    return res.json();
-  }
+  assetsListMapper(asset) {
 
-  private handleError(error: Response | any) {
-    console.error(error);
-    return Observable.throw(error);
   }
 }
