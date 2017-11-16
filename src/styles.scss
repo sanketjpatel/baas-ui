@@ -29,8 +29,17 @@ material-app,
 
 /* Global style overrides for Bootstrap */
 
-h1, h2 {
+*{
+  font-family: Roboto, sans-serif;
+}
+body{
+  padding: 15px;
+}
+h1, h2, h3, h4 {
   font-weight: 300;
+}
+h1{
+  font-size: 2rem;
 }
 .btn-secondary.active,
 .btn-secondary:active,

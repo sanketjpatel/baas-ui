@@ -5,12 +5,21 @@
   color: $font-white-color;
   height: 100%;
 
+  .head-row{
+    padding-bottom: 20px;
+  }
+
   .logo {
     width: 40px;
+    float: right;
+    margin: -5px 0 0 10px;
+
   }
 
   .add-new-asset {
     color: $active-bg;
+    font-size: 1.4rem;
+    text-align: right;
 
     &:hover {
       color: $active-hover;

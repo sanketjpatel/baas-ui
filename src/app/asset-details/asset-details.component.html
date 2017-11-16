@@ -1,17 +1,15 @@
 <div class="container-fluid asset-details">
-  <div class="row">
-    <div class="col-11">
+  <div class="row head-row">
+    <div class="col-12">
+      <img class="logo" src="../../assets/images/icon.png">
       <h1>
         <i class="back-button fa fa-arrow-circle-left" aria-hidden="true" (click)="onBackClick()"></i>
         Asset 123
       </h1>
     </div>
-    <div class="col-1">
-      <img class="logo" src="../../assets/images/icon.png">
-    </div>
 
   </div>
-  <div class="row">
+  <div class="row ">
     <div class="col-6">
       <div class="chart-wrapper">
         <div class="sub-title">Asset Temperature</div>
@@ -25,14 +23,14 @@
         <div id="map"></div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-6 data-col">
       <div class="row">
         <div class="col-6">
           <div class="asset-stat">
             <strong>Sensor Type:</strong> Temperature
           </div>
           <div class="asset-stat">
-            <strong>Range Max:</strong> 36
+            <strong>Range Max:</strong> 36°
           </div>
           <div class="asset-stat">
             <strong>Due Date:</strong> 11/20/17 6:00 CST
@@ -43,7 +41,7 @@
             <strong>Sensor ID:</strong> 123456890
           </div>
           <div class="asset-stat">
-            <strong>Range Min:</strong> 24
+            <strong>Range Min:</strong> 24°
           </div>
         </div>
       </div>
@@ -85,7 +83,7 @@
             <!-- Block Column -->
             <ng-container matColumnDef="block">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Block </mat-header-cell>
-              <mat-cell *matCellDef="let element"> View </mat-cell>
+              <mat-cell *matCellDef="let element"> <span class="view-link" (click)="showData({one: 1})">View</span> </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -96,4 +94,15 @@
 
     </div>
   </div>
+</div>
+<div *ngIf="showPopover" class="data-popup">
+  <div class="block-data row">
+    <div class=" col-11">
+      <h4>Block Data</h4>
+    </div>
+    <div class="close-modal col-1" (click)="hidePopover()">
+      <i class="fa fa-window-close" aria-hidden="true"></i>
+    </div>
+  </div>
+  <pre>{{data | json}}</pre>
 </div>

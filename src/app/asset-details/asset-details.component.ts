@@ -28,7 +28,8 @@ export class AssetDetailsComponent implements OnInit {
 
   displayedColumns = ['time', 'temp', 'lat', 'long', 'rangeError', 'block'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-
+   data: object;
+   showPopover = false;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router, private route: ActivatedRoute) {
     this.centerLat = 41.878;
@@ -87,6 +88,15 @@ export class AssetDetailsComponent implements OnInit {
 
   getIconUrl(location) {
     return location.locationAlertType === 'high' ? '../assets/images/red-alert.svg' : '../assets/images/no-alert.svg';
+  }
+
+  showData(data) {
+    this.data = data;
+    this.showPopover = true;
+  }
+
+  hidePopover() {
+    this.showPopover = false;
   }
 
   initMap() {

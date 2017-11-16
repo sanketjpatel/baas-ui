@@ -1,26 +1,24 @@
 <div class="asset-list-container">
   <nav>
-    <div class="row">
+    <div class="row head-row">
       <div class="col-md-8">
         <h1>
           Asset Tracker
         </h1>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="add-new-asset-container">
+          <img class="logo" src="../../assets/images/icon.png">
           <h2 class="add-new-asset" (click)="onAddAsset()">
             <span class="fa fa-plus-circle"></span> Add New Asset
           </h2>
         </div>
       </div>
-      <div class="col-md-1">
-        <img class="logo" src="../../assets/images/icon.png">
-      </div>
     </div>
   </nav>
 
   <div class="asset-list-table">
-    <div class="example-container mat-elevation-z8">
+    <div class="example-container">
       <mat-table #table [dataSource]="dataSource" matSort>
 
         <!-- Name Column -->
