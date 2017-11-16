@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { Router } from '@angular/router';
-import { GlobalService} from '../shared/global-service';
+import { GlobalService} from '../shared/services/global-service';
 
 @Component({
   selector: 'app-asset-list',

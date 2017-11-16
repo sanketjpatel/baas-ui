@@ -47,7 +47,7 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
-import {GlobalService} from './shared/global-service';
+import {GlobalService} from './shared/services/global-service';
 import { AdvancedComponent } from './advanced/advanced.component';
 
 @NgModule({
