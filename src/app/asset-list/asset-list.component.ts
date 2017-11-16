@@ -3,7 +3,8 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 import { Router } from '@angular/router';
 import { GlobalService } from '../shared/services/global-service';
 import { AssetsService } from '../shared/services/assets-service';
-
+import * as _ from 'lodash';
+import 'rxjs/Rx';
 
 export interface Element {
   id: string;
@@ -38,7 +39,13 @@ export class AssetListComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
-    this.assetsService.getAssetsList().then(console.log);
+    this.assetsService.getAssetsList().then(data => {
+      _.forEach(data, record => {
+        ELEMENT_DATA.push(record);
+      });
+      this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+      console.log(ELEMENT_DATA);
+    });
   }
 
   onAddAsset() {
