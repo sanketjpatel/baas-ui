@@ -48,6 +48,7 @@ import {
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import {GlobalService} from './shared/global-service';
+import { AdvancedComponent } from './advanced/advanced.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {GlobalService} from './shared/global-service';
     AssetDetailsComponent,
     AssetListComponent,
     AddAssetComponent,
-    LoginComponent
+    LoginComponent,
+    AdvancedComponent
   ],
   imports: [
     BrowserModule,

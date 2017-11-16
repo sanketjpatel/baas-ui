@@ -1,0 +1,39 @@
+@import "../shared/scss/variables";
+
+.login-container {
+  .header-row {
+    padding-bottom: 30px;
+  }
+  .mat-button {
+
+    &.element-button {
+      background-color: $active-bg !important;
+      font-size: .8em;
+      width: 100%;
+
+    }
+
+    &.visualize-button {
+      background-color: green !important;
+      font-size: 1.2em;
+      padding: 5px;
+      float: right;
+    }
+    width: 150px;
+    margin: 2px;
+  }
+
+  mat-form-field {
+    width: 40%;
+    padding: 5px;
+  }
+  .data-display {
+    min-height: 500px;
+    border: solid gray 1px;
+    pre {
+      overflow-y: scroll;
+      padding: 15px;
+      color: white;
+    }
+  }
+}
