@@ -50,16 +50,16 @@
           <mat-table #table [dataSource]="dataSource" matSort>
 
             <!-- Time Column -->
-            <ng-container matColumnDef="time">
+            <ng-container matColumnDef="timeStamp">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Time </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.timeStamp}} </mat-cell>
             </ng-container>
 
 
             <!-- Temperature Column -->
-            <ng-container matColumnDef="temp">
+            <ng-container matColumnDef="temperature">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Temp </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.temp}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.temperature}} </mat-cell>
             </ng-container>
 
             <!-- Latitude Column -->
@@ -77,7 +77,7 @@
             <!-- Range Error Column -->
             <ng-container matColumnDef="rangeError">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Range Error </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.rangeError}} </mat-cell>
+              <mat-cell *matCellDef="let element"><span ngClass="{{element.rangeError ? 'range-active': ''}}">{{element.rangeError ?  'Yes' : 'No'}}</span></mat-cell>
             </ng-container>
 
             <!-- Block Column -->

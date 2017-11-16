@@ -11,6 +11,17 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 declare let google: any;
 declare let Highcharts: any;
 
+export interface Element {
+  blockId: string;
+  timeStamp: number;
+  temperature: number;
+  lat: number;
+  long: number;
+  rangeError: boolean;
+}
+
+const ELEMENT_DATA: Element[] = [];
+
 @Component({
   selector: 'app-asset-details',
   templateUrl: './asset-details.component.html',
@@ -26,7 +37,7 @@ export class AssetDetailsComponent implements OnInit {
   centerLng: number;
   private assetId: string;
 
-  displayedColumns = ['time', 'temp', 'lat', 'long', 'rangeError', 'block'];
+  displayedColumns = ['timeStamp', 'temperature', 'lat', 'long', 'rangeError', 'block'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
    data: object;
    showPopover = false;
@@ -42,30 +53,36 @@ export class AssetDetailsComponent implements OnInit {
 
   ngOnInit() {
     const observations = [{
-      blockId: 1,
+      blockId: '1',
       timeStamp: 16,
       temperature: 6,
       lat: 35,
-      long: -80
+      long: -80,
+      rangeError: true
     }, {
-      blockId: 2,
+      blockId: '2',
       timeStamp: 25,
       temperature: 0,
       lat: 36,
-      long: -81
+      long: -81,
+      rangeError: true
     }, {
-      blockId: 3,
+      blockId: '3',
       timeStamp: 36,
       temperature: 3,
       lat: 37,
-      long: -82
+      long: -82,
+      rangeError: false
     }, {
-      blockId: 4,
+      blockId: '4',
       timeStamp: 49,
       temperature: 2,
       lat: 10,
-      long: -77
+      long: -77,
+      rangeError: false
     }];
+
+    _.forEach(observations, obs => ELEMENT_DATA.push(obs));
     Highcharts.setOptions(CHART_THEME);
 
     this.route.params.subscribe(val => {
@@ -210,20 +227,3 @@ export class AssetDetailsComponent implements OnInit {
     return Highcharts.chart('highcharts-container', chartOptions);
   }
 }
-
-
-export interface Element {
-  id: string;
-  time: string;
-  temp: string;
-  lat: string;
-  long: string;
-  rangeError: string;
-}
-
-const ELEMENT_DATA: Element[] = [
-  {id: '1', time: 'Nov 14', temp: '22', lat: '35.92',
-    long: '-77.03', rangeError: 'Yes'},
-  {id: '2', time: 'Nov 14', temp: '21', lat: '35.92',
-    long: '-77.03', rangeError: 'Yes'}
-];

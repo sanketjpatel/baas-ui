@@ -62,6 +62,10 @@
     }
   }
 
+  .range-active {
+    color: $alert-color;
+    font-weight: bold;
+  }
 }
 
 .data-popup {
