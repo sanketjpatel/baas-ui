@@ -7,6 +7,8 @@ import CHART_THEME from './chart-theme';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import {MatSort, MatTableDataSource} from '@angular/material';
+import {GlobalService} from '../shared/services/global-service';
+import {AssetsService} from '../shared/services/assets-service';
 
 declare let google: any;
 declare let Highcharts: any;
@@ -35,68 +37,101 @@ export class AssetDetailsComponent implements OnInit {
   alertPlotLineColor: string;
   centerLat: number;
   centerLng: number;
-  private assetId: string;
+  assetName: any;
+  assetData: any;
+  dummyDataBlock = {
+    blockId: 'id2',
+    timeStamp: moment().unix(),
+    temperature: 55,
+    lat: 41.7953615,
+    long: -87.1388979,
+    rangeError: false
+  };
 
   displayedColumns = ['timeStamp', 'temperature', 'lat', 'long', 'rangeError', 'block'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
    data: object;
    showPopover = false;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private router: Router, private route: ActivatedRoute) {
-    this.centerLat = 41.878;
-    this.centerLng = -87.62;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private assetsService: AssetsService
+  ) {
     this.alertFreePlotLineColor = '#289DDD';
     this.alertFreePlotBandColor = '#26323A';
     this.alertPlotBandColor = 'rgba(253, 82, 85, 0.2)';
     this.alertPlotLineColor = '#F00';
   }
 
-  ngOnInit() {
-    const observations = [{
-      blockId: '1',
-      timeStamp: 16,
-      temperature: 6,
-      lat: 35,
-      long: -80,
-      rangeError: true
-    }, {
-      blockId: '2',
-      timeStamp: 25,
-      temperature: 0,
-      lat: 36,
-      long: -81,
-      rangeError: true
-    }, {
-      blockId: '3',
-      timeStamp: 36,
-      temperature: 3,
-      lat: 37,
-      long: -82,
-      rangeError: false
-    }, {
-      blockId: '4',
-      timeStamp: 49,
-      temperature: 2,
-      lat: 10,
-      long: -77,
-      rangeError: false
-    }];
+  clean(arrayVar) {
+    while(arrayVar.length) {
+      arrayVar.pop();
+    }
+  }
 
-    _.forEach(observations, obs => ELEMENT_DATA.push(obs));
+  ngOnInit() {
+    let map;
+    let marker;
+    let assetData = [];
     Highcharts.setOptions(CHART_THEME);
 
-    this.route.params.subscribe(val => {
-      this.assetId = val.assetId;
-      this.initMap();
-      this.updateChart({
-        observationsData: _.map(observations, observation => [observation.timeStamp, observation.temperature]),
-        plotBandMaxValue: 5,
-        plotBandMinValue: 1,
-        yMax: 8,
-        yMin: -2,
-        alertLevel: 'high'
+    function temperatureTooltipFormatter() {
+      const yValue = `${Number(this.y).toFixed()} °F`;
+      const xValue = timeFormat(this.x);
+
+      return `<span>Time: ${xValue}</span><br /><b>Temperature: ${yValue}</b><br/>`;
+    }
+
+    function timeFormat(epochTimeValue) {
+      return moment(epochTimeValue * 1000).format('MMM DD h:mm a');
+    }
+
+    function timeLabelFormatter() {
+      return timeFormat(this.value);
+    }
+
+    function markerClickCallback() {
+      const blockData = assetData[this.index];
+
+      const location = {lat: blockData.lat, lng: blockData.long};
+      map.setCenter(location);
+      marker.setPosition(location);
+    }
+
+    this.route.queryParams
+      .subscribe(params => {
+        this.assetName = params.assetName;
+        this.assetsService.getAssetTransactions(params.assetId, params.accountId)
+          .then(data => {
+            this.assetData = data;
+            if (this.assetData.length < 2) {
+              this.assetData.push(this.dummyDataBlock);
+            }
+            assetData = this.assetData;
+            this.clean(ELEMENT_DATA);
+            _.forEach(this.assetData, obs => ELEMENT_DATA.push(obs));
+            this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+            this.centerLat = this.assetData[0].lat;
+            this.centerLng = this.assetData[0].long;
+
+            const mapMarker = this.initMap();
+            map = mapMarker[0];
+            marker = mapMarker[1];
+            this.updateChart({
+              observationsData: _.map(this.assetData, (observation: any) => [observation.timeStamp, observation.temperature]),
+              plotBandMaxValue: 80,
+              plotBandMinValue: 30,
+              yMax: 90,
+              yMin: 20,
+              xAxisFormatter: timeLabelFormatter,
+              tooltipFormatter: temperatureTooltipFormatter,
+              markerClickCallback: markerClickCallback,
+              alertLevel: 'high'
+            });
+          });
       });
-    });
   }
 
   onBackClick() {
@@ -120,7 +155,7 @@ export class AssetDetailsComponent implements OnInit {
     const location = {lat: this.centerLat, lng: this.centerLng};
     const styledMapType = new google.maps.StyledMapType(MAPCONFIG);
     const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 14,
+      zoom: 11,
       center: location,
       disableDefaultUI: true,
       mapTypeControlOptions: {
@@ -141,6 +176,8 @@ export class AssetDetailsComponent implements OnInit {
       icon: image,
       map: map
     });
+
+    return [map, marker];
   }
 
   updateChart(options) {
@@ -153,6 +190,7 @@ export class AssetDetailsComponent implements OnInit {
     const tooltipFormatter = _.get(options, 'tooltipFormatter');
     const yAxisTitle = _.get(options, 'yAxisTitle');
     const alertLevel = _.get(options, 'alertLevel');
+    const markerClickCallback = _.get(options, 'markerClickCallback', _.noop);
     const observationValues = _.map(observationData, '1');
 
     const observationsMin = _.min(observationValues);
@@ -161,8 +199,8 @@ export class AssetDetailsComponent implements OnInit {
     let yMin = _.min([plotBandMinValue, observationsMin]);
     let yMax = _.max([plotBandMaxValue, observationsMax]);
     const range = yMax - yMin;
-    yMax += range / 20;
-    yMin -= range / 20;
+    yMax += range / 10;
+    yMin -= range / 10;
     const plotBandColor = alertLevel === 'high' ? this.alertPlotBandColor : this.alertFreePlotBandColor;
     const plotLineColor = alertLevel === 'high' ? this.alertPlotLineColor : this.alertFreePlotLineColor;
 
@@ -213,6 +251,16 @@ export class AssetDetailsComponent implements OnInit {
           to: plotBandMinValue,
           id: 'plotBandMin'
         }]
+      },
+      plotOptions: {
+        series: {
+          cursor: 'pointer',
+          point: {
+            events: {
+              click: markerClickCallback
+            }
+          }
+        }
       },
       series: [
         {

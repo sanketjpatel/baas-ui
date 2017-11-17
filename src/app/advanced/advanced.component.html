@@ -7,7 +7,7 @@
        <input name="accountId" matInput placeholder="Account" [(ngModel)]="accountId" required>
      </mat-form-field>
      <mat-form-field>
-       <input name="asset" matInput placeholder="Asset" [(ngModel)]="accountId" required>
+       <input name="asset" matInput placeholder="Asset" [(ngModel)]="assetName" required>
      </mat-form-field>
      <button class="visualize-button" (click)="getBlockData()" mat-button>Visualize</button>
 
@@ -15,13 +15,16 @@
  </div>
   <div class="row">
     <div class="col-5">
+      <div><h4>Block Ids</h4></div>
       <div *ngFor="let element of blockIds">
         <button class="element-button" (click)="getBlock(element)" mat-button>{{element}}</button>
-
       </div>
     </div>
-    <div class="data-display col-7">
-      <pre>{{displayData | json}}</pre>
+    <div class="col-7">
+      <div><h4>Block Data</h4></div>
+      <div class="data-display">
+        <pre>{{displayData | json}}</pre>
+      </div>
     </div>
   </div>
 </div>

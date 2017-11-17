@@ -40,15 +40,36 @@ export class AssetListComponent implements OnInit {
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.assetsService.getAssetsList().then(data => {
+      this.clean(ELEMENT_DATA);
       _.forEach(data, record => {
         ELEMENT_DATA.push(record);
       });
       this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-      console.log(ELEMENT_DATA);
     });
   }
 
   onAddAsset() {
     return this.router.navigate(['/add-asset']);
+  }
+
+  navigateToAsset(asset) {
+    this.globalService.asset = asset;
+    this.router.navigate(['/asset-details'], {
+      queryParams: {
+        assetId: asset.asset,
+        assetName: asset.dataRecord.name,
+        accountId: this.globalService.accountId
+      }
+    });
+  }
+
+  goToAdv() {
+    return this.router.navigate(['/advanced']);
+  }
+
+  clean(arrayVar) {
+    while(arrayVar.length > 0) {
+      arrayVar.pop();
+    }
   }
 }

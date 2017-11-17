@@ -30,25 +30,25 @@
         <!-- Checkin Column -->
         <ng-container matColumnDef="checkIn">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Last Checkin </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.checkIn}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.checkIn | date:'yyyy-MM-dd HH:mm a'}} </mat-cell>
         </ng-container>
 
         <!-- Due Date Column -->
         <ng-container matColumnDef="dueDate">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.dueDate}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.dueDate | date}} </mat-cell>
         </ng-container>
 
         <!-- Latitude Column -->
         <ng-container matColumnDef="lat">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Lat </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.lat}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.lat | number}} </mat-cell>
         </ng-container>
 
         <!-- Longitude Column -->
         <ng-container matColumnDef="long">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Long </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.long}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.long | number}} </mat-cell>
         </ng-container>
 
         <!-- Sensor Type Column -->
@@ -60,13 +60,13 @@
         <!-- Range Error Column -->
         <ng-container matColumnDef="rangeError">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Range Error </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.rangeError}} </mat-cell>
+          <mat-cell *matCellDef="let element"><span ngClass="{{element.rangeError ? 'range-active': ''}}">{{element.rangeError ?  'Yes' : 'No'}}</span></mat-cell>
         </ng-container>
 
         <!-- Details Column -->
         <ng-container matColumnDef="details">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Details </mat-header-cell>
-          <mat-cell *matCellDef="let element"> <a href="/asset-details/{{element.id}}">View</a> </mat-cell>
+          <mat-cell *matCellDef="let element"> <span class="view-link" (click)="navigateToAsset(element.asset)">View</span> </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -74,4 +74,10 @@
       </mat-table>
     </div>
   </div>
+  <div class="block-visualizer row">
+    <div class="col-12" (click)="goToAdv()">
+      <i class="fa fa-th-large" aria-hidden="true"></i> Block Visualizer
+    </div>
+  </div>
+
 </div>

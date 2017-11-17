@@ -23,16 +23,6 @@
   mat-table {
     margin: 30px 0;
 
-    .view-link {
-      cursor: pointer;
-      color: $active-bg;
-      text-decoration: underline;
-
-      &:hover {
-        color: $active-hover;
-      }
-    }
-
     .mat-header-row, .mat-row {
       min-height: 32px;
     }
@@ -60,11 +50,6 @@
       height: 400px;
       width: 100%;
     }
-  }
-
-  .range-active {
-    color: $alert-color;
-    font-weight: bold;
   }
 }
 

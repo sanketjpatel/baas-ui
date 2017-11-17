@@ -4,7 +4,7 @@
       <img class="logo" src="../../assets/images/icon.png">
       <h1>
         <i class="back-button fa fa-arrow-circle-left" aria-hidden="true" (click)="onBackClick()"></i>
-        Asset 123
+        {{this.assetName}}
       </h1>
     </div>
 
@@ -30,7 +30,7 @@
             <strong>Sensor Type:</strong> Temperature
           </div>
           <div class="asset-stat">
-            <strong>Range Max:</strong> 36°
+            <strong>Range Max:</strong> 80°
           </div>
           <div class="asset-stat">
             <strong>Due Date:</strong> 11/20/17 6:00 CST
@@ -41,7 +41,7 @@
             <strong>Sensor ID:</strong> 123456890
           </div>
           <div class="asset-stat">
-            <strong>Range Min:</strong> 24°
+            <strong>Range Min:</strong> 30°
           </div>
         </div>
       </div>
@@ -52,26 +52,26 @@
             <!-- Time Column -->
             <ng-container matColumnDef="timeStamp">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Time </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.timeStamp}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.timeStamp * 1000 | date: 'MMM dd, HH:mm'}} </mat-cell>
             </ng-container>
 
 
             <!-- Temperature Column -->
             <ng-container matColumnDef="temperature">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Temp </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.temperature}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.temperature}}° </mat-cell>
             </ng-container>
 
             <!-- Latitude Column -->
             <ng-container matColumnDef="lat">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Lat </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.lat}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.lat | number}} </mat-cell>
             </ng-container>
 
             <!-- Longitude Column -->
             <ng-container matColumnDef="long">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Long </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.long}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.long | number}} </mat-cell>
             </ng-container>
 
             <!-- Range Error Column -->
